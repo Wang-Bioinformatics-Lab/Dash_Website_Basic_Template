@@ -1,0 +1,55 @@
+version: '3'
+services:
+  template-dash:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: template-dash
+    volumes:
+      - ./logs:/app/logs:rw
+    ports:
+    - "5000:5000"
+    networks:
+      - default
+      - nginx-net
+    restart: unless-stopped
+    command: /app/run_server.sh
+    environment:
+      VIRTUAL_HOST: template.ucsd.edu
+      VIRTUAL_PORT: 5000
+      LETSENCRYPT_HOST: template.ucsd.edu
+      LETSENCRYPT_EMAIL: miw023@ucsd.edu
+
+  template-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: template-worker
+    volumes:
+      - ./logs:/app/logs:rw
+    command: /app/run_worker.sh
+    restart: unless-stopped
+    depends_on: 
+      - template-redis
+      - template-rabbitmq
+    networks:
+      - default
+      - nginx-net
+
+  template-rabbitmq:
+    container_name: template-rabbitmq
+    image: rabbitmq
+    networks:
+      - default
+
+  template-redis:
+    container_name: template-redis
+    image: redis
+    networks:
+      - default
+
+
+networks:
+  nginx-net:
+    external:
+      name: nginx-net

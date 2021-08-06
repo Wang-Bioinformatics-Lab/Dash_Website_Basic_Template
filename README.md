@@ -1,10 +1,5 @@
-## GNPS Dash Basic Template
+There are several templates to choose from
 
-This is a minimally viable template for GNPS without a worker
-
-### Editing Tempalte
-
-1. Replace all references to template to your own name
-1. Change the external port in docker-compose.yml
-1. Make new repo
-1. Bring up the server with ```make server-compose-interactive```
+1. basic - simple single page Dash Template
+1. basic-worker - simple single page Dash Template with a Celery Worker
+1. multiple-page - multipage Dash Template to extend many Dash interfaces
