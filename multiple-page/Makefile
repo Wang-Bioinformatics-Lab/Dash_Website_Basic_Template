@@ -15,5 +15,8 @@ server-compose:
 	docker-compose build
 	docker-compose up -d
 
+dev-dash1:
+	python ./dash_interface1.py
+
 attach:
-	docker exec -i -t gnpslcms-dash /bin/bash
+	docker exec -i -t template-dash /bin/bash

@@ -3,9 +3,9 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_table
-import requests
 from dash.dependencies import Input, Output, State
 
+import urllib.parse
 from flask_caching import Cache
 
 import views
@@ -138,7 +138,7 @@ BODY = dbc.Container(
     className="",
 )
 
-app.layout = html.Div(children=[NAVBAR, BODY])
+dash_app.layout = html.Div(children=[NAVBAR, BODY])
 
 def _get_url_param(param_dict, key, default):
     return param_dict.get(key, [default])[0]
