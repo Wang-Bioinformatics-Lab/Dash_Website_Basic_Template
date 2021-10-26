@@ -6,7 +6,6 @@ import dash_html_components as html
 import dash_table
 import plotly.express as px
 import plotly.graph_objects as go 
-import dash_daq as daq
 from dash.dependencies import Input, Output, State
 import os
 from zipfile import ZipFile
@@ -18,7 +17,6 @@ import requests
 import uuid
 import werkzeug
 
-import pymzml
 import numpy as np
 from tqdm import tqdm
 import urllib
