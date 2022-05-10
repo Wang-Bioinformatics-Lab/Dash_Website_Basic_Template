@@ -1,0 +1,9 @@
+Flask
+gunicorn
+plotly
+pandas
+requests
+tqdm
+Werkzeug
+Flask-Caching
+peewee

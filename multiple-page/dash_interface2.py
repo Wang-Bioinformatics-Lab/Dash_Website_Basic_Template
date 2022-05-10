@@ -1,11 +1,30 @@
+# -*- coding: utf-8 -*-
 import dash
+from dash import dcc
+from dash import html
+from dash import dash_table
 import dash_bootstrap_components as dbc
-import dash_core_components as dcc
-import dash_html_components as html
-import dash_table
 from dash.dependencies import Input, Output, State
+import plotly.express as px
+import plotly.graph_objects as go 
 
+import os
 import urllib.parse
+from flask import Flask, send_from_directory
+
+import pandas as pd
+import requests
+import uuid
+import werkzeug
+
+import numpy as np
+from tqdm import tqdm
+import urllib
+import json
+
+from collections import defaultdict
+import uuid
+
 from flask_caching import Cache
 
 import views
@@ -52,7 +71,7 @@ DATASELECTION_CARD = [
             html.H5(children='GNPS Data Selection'),
             dbc.InputGroup(
                 [
-                    dbc.InputGroupAddon("Spectrum USI", addon_type="prepend"),
+                    dbc.InputGroupText("Spectrum USI"),
                     dbc.Input(id='usi1', placeholder="Enter GNPS USI", value=""),
                 ],
                 className="mb-3",
@@ -60,7 +79,7 @@ DATASELECTION_CARD = [
             html.Hr(),
             dbc.InputGroup(
                 [
-                    dbc.InputGroupAddon("Spectrum USI", addon_type="prepend"),
+                    dbc.InputGroupText("Spectrum USI"),
                     dbc.Input(id='usi2', placeholder="Enter GNPS USI", value=""),
                 ],
                 className="mb-3",
