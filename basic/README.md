@@ -1,6 +1,6 @@
-## GNPS Dash Basic Template
+## Wang Lab Dash Basic Template
 
-This is a minimally viable template for GNPS without a worker
+This is a minimally viable template for Wang Lab without a worker
 
 ### Editing Tempalte
 
