@@ -10,7 +10,7 @@ import plotly.graph_objects as go
 
 import os
 import urllib.parse
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, request
 
 import pandas as pd
 import requests
@@ -78,6 +78,16 @@ DATASELECTION_CARD = [
                 ],
                 className="mb-3",
             ),
+            html.Br(),
+            dbc.Button("Copy Link", color="info", id="copy_link_button", n_clicks=0),
+            html.Div(
+                [
+                    dcc.Link(id="query_link", href="#", target="_blank"),
+                ],
+                style={
+                        "display" :"none"
+                }
+            )
         ]
     )
 ]
@@ -183,6 +193,55 @@ def determine_task(search):
             ])
 def draw_output(usi1, usi2):
     return [usi1+usi2]
+
+
+@app.callback([
+                Output('query_link', 'href'),
+              ],
+                [
+                    Input('usi1', 'value'),
+                    Input('usi2', 'value'),
+                ])
+def draw_url(usi1, usi2):
+    params = {}
+    params["usi1"] = usi1
+    params["usi2"] = usi2
+
+    url_params = urllib.parse.urlencode(params)
+
+    return [request.host_url + "/?" + url_params]
+
+app.clientside_callback(
+    """
+    function(n_clicks, button_id, text_to_copy) {
+        original_text = "Copy Link"
+        if (n_clicks > 0) {
+            const el = document.createElement('textarea');
+            el.value = text_to_copy;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            setTimeout(function(id_to_update, text_to_update){ 
+                return function(){
+                    document.getElementById(id_to_update).textContent = text_to_update
+                }}(button_id, original_text), 1000);
+            document.getElementById(button_id).textContent = "Copied!"
+            return 'Copied!';
+        } else {
+            return original_text;
+        }
+    }
+    """,
+    Output('copy_link_button', 'children'),
+    [
+        Input('copy_link_button', 'n_clicks'),
+        Input('copy_link_button', 'id'),
+    ],
+    [
+        State('query_link', 'href'),
+    ]
+)
 
 # API
 @server.route("/api")
