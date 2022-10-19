@@ -19,6 +19,8 @@ services:
       VIRTUAL_PORT: 5000
       LETSENCRYPT_HOST: template.ucsd.edu
       LETSENCRYPT_EMAIL: miw023@ucsd.edu
+    labels:
+      - traefik.http.routers.gnpslcms-dash.rule=Host(`local.wanglab.science`) || Host(`local2.wanglab.science`)
 
 
 networks:
