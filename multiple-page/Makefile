@@ -1,18 +1,12 @@
-build:
-	docker build -t gnpslibrary . 
-
-bash:
-	docker run -it --rm gnpslibrary /bin/bash
-
 server-compose-build-nocache:
-	docker-compose build --no-cache
+	docker-compose --compatibility build --no-cache
 
 server-compose-interactive:
-	docker-compose build
+	docker-compose --compatibility build
 	docker-compose --compatibility up
 
 server-compose:
-	docker-compose build
+	docker-compose --compatibility build
 	docker-compose --compatibility up -d
 
 dev-dash1:
