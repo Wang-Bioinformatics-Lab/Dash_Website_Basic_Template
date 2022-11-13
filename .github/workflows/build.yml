@@ -3,11 +3,11 @@ name: Docker Build Test
 on:
   - push
   - pull_request
-  #schedule:
-  # - cron:  '*/60 * * * *'
+  schedule:
+    - cron:  '0 0 * * 1'
 
 jobs:
-  load-test:
+  build-test:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
