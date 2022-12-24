@@ -41,6 +41,27 @@ cache = Cache(app.server, config={
 
 server = app.server
 
+# setting tracking token
+app.index_string = """<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Umami Analytics -->
+        <script async defer data-website-id="ENTER YOUR TOKEN HERE" src="https://analytics.gnps2.org/umami.js"></script>
+        {%metas%}
+        <title>{%title%}</title>
+        {%favicon%}
+        {%css%}
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+    </body>
+</html>"""
+
 NAVBAR = dbc.Navbar(
     children=[
         dbc.NavbarBrand(
