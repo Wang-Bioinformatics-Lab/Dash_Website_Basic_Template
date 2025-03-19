@@ -8,19 +8,22 @@ services:
     volumes:
       - ./logs:/app/logs:rw
     ports:
-    - "5000:5000"
+      - "5000:5000"
     networks:
       - default
       - nginx-net
     restart: unless-stopped
     command: /app/run_server.sh
     environment:
-      VIRTUAL_HOST: template.ucsd.edu
+      VIRTUAL_HOST: template.gnps2.org
       VIRTUAL_PORT: 5000
-      LETSENCRYPT_HOST: template.ucsd.edu
-      LETSENCRYPT_EMAIL: miw023@ucsd.edu
-
-
+      LETSENCRYPT_HOST: template.gnps2.org
+      LETSENCRYPT_EMAIL: mingxun.wang@cs.ucr.edu
+    deploy:
+      resources:
+        limits:
+          memory: 32GB
+  
 networks:
   nginx-net:
     external:
