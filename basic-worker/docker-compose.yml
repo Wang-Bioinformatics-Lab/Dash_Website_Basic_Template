@@ -13,12 +13,17 @@ services:
       - default
       - nginx-net
     restart: unless-stopped
-    command: /app/run_server.sh
+    command: /bin/bash -c "source activate python312 && /app/run_server.sh"
     environment:
-      VIRTUAL_HOST: template.ucsd.edu
+      VIRTUAL_HOST: template.gnps2.org
       VIRTUAL_PORT: 5000
-      LETSENCRYPT_HOST: template.ucsd.edu
-      LETSENCRYPT_EMAIL: miw023@ucsd.edu
+      LETSENCRYPT_HOST: template.gnps2.org
+      LETSENCRYPT_EMAIL: mingxun.wang@cs.ucr.eduu
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   template-worker:
     build:
@@ -27,7 +32,7 @@ services:
     container_name: template-worker
     volumes:
       - ./logs:/app/logs:rw
-    command: /app/run_worker.sh
+    command: /bin/bash -c "source activate python312 && /app/run_worker.sh"
     restart: unless-stopped
     depends_on: 
       - template-redis
@@ -35,18 +40,34 @@ services:
     networks:
       - default
       - nginx-net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   template-rabbitmq:
     container_name: template-rabbitmq
     image: rabbitmq
     networks:
       - default
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
 
   template-redis:
     container_name: template-redis
     image: redis
     networks:
       - default
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 
 networks:

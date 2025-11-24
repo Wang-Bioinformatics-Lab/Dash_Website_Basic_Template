@@ -1,6 +1,7 @@
 Flask
 gunicorn
 plotly
+numpy>=2.0
 pandas
 requests
 tqdm

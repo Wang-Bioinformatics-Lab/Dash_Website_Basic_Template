@@ -1,7 +1,7 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 MAINTAINER Mingxun Wang "mwang87@gmail.com"
 
-RUN apt-get update && apt-get install -y build-essential libarchive-dev wget vim
+RUN apt-get update && apt-get install -y build-essential libarchive-dev wget vim curl
 
 # Install Mamba
 ENV CONDA_DIR /opt/conda
@@ -12,10 +12,10 @@ ENV PATH=$CONDA_DIR/bin:$PATH
 RUN echo "export PATH=$CONDA_DIR:$PATH" >> ~/.bashrc
 
 # Forcing version of Python
-RUN mamba create -n python310 python=3.10 -y
+RUN mamba create -n python312 python=3.12 -y
 
 COPY requirements.txt .
-RUN /bin/bash -c 'source activate python310 && pip install -r requirements.txt'
+RUN /bin/bash -c 'source activate python312 && pip install -r requirements.txt'
 
 COPY . /app
 WORKDIR /app
