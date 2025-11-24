@@ -1,6 +1,7 @@
 Flask
 gunicorn
 plotly
+numpy>=2.0
 pandas
 requests
 tqdm
@@ -12,5 +13,5 @@ dash-core-components
 dash-html-components
 dash-renderer
 dash-table
-celery==5.0.5
+celery==5.5.3
 celery_once==3.0.1
